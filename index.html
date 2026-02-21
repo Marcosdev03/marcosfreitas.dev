@@ -1,120 +1,138 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Marcos Freitas</title>
 
-    <!-- Estilos globais -->
-    <link rel="stylesheet" href="src/styles/main.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marcos Freitas</title>
 
-  <body>
-    <!-- Topo do site -->
-    <header class="site-header">
-      <nav class="nav">
-        <a class="brand" href="./index.html">Marcos Freitas</a>
+  <!-- Estilos globais -->
+  <link rel="stylesheet" href="src/styles/main.css" />
+</head>
 
-        <ul class="nav-links">
-          <li><a href="#projetos">Projetos</a></li>
-          <li><a href="#blog">Blog</a></li>
-          <li><a href="#servicos">Serviços</a></li>
-          <li><a href="#contato">Contato</a></li>
-        </ul>
-      </nav>
-    </header>
+<body>
 
-    <main class="container">
-      <!-- Hero -->
-      <section class="hero">
-        <p class="tag">Fullstack • QA-minded • IA aplicada</p>
+  <!-- Fundo animado -->
+  <div class="bg-blobs" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
 
-        <h1 class="hero-title">
-          Construo software moderno com foco em qualidade e aplicações reais de IA.
-        </h1>
+  <!-- Topo do site -->
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="./index.html">Marcos Freitas</a>
 
-        <p class="hero-subtitle">
-          Sou Marcos Freitas. Documentação clara, testes, e evolução pública com projetos open source.
-        </p>
+      <ul class="nav-links">
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
 
-        <div class="hero-actions">
-          <a class="btn primary" href="#projetos">Ver projetos</a>
-          <a class="btn ghost" href="#contato">Falar comigo</a>
-        </div>
-      </section>
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <p class="tag">Fullstack • QA-minded • IA aplicada</p>
 
-      <!-- Projetos -->
-      <section id="projetos" class="section">
-        <h2>Projetos</h2>
-        <p class="section-lead">Projetos open source e estudos aplicados, com documentação e foco em engenharia.</p>
+      <h1 class="hero-title">
+        Construo software moderno com foco em qualidade e aplicações reais de IA.
+      </h1>
 
-        <div class="grid">
-          <article class="card">
-            <h3>Projeto 01</h3>
-            <p>Descrição curta do problema e do valor entregue.</p>
-            <div class="card-footer">
-              <a href="#" class="link">Repo</a>
-              <a href="#" class="link">Detalhes</a>
-            </div>
-          </article>
+      <p class="hero-subtitle">
+        Sou Marcos Freitas. Documentação clara, testes, e evolução pública com projetos open source.
+      </p>
 
-          <article class="card">
-            <h3>Projeto 02</h3>
-            <p>Descrição curta do problema e do valor entregue.</p>
-            <div class="card-footer">
-              <a href="#" class="link">Repo</a>
-              <a href="#" class="link">Detalhes</a>
-            </div>
-          </article>
+      <div class="hero-actions">
+        <a class="btn primary" href="#projetos">Ver projetos</a>
+        <a class="btn ghost" href="#contato">Falar comigo</a>
+      </div>
+    </section>
 
-          <article class="card">
-            <h3>Projeto 03</h3>
-            <p>Descrição curta do problema e do valor entregue.</p>
-            <div class="card-footer">
-              <a href="#" class="link">Repo</a>
-              <a href="#" class="link">Detalhes</a>
-            </div>
-          </article>
-        </div>
-      </section>
+    <!-- Projetos -->
+    <section id="projetos" class="section">
+      <h2>Projetos</h2>
+      <p class="section-lead">Projetos open source e estudos aplicados, com documentação e foco em engenharia.</p>
 
-      <!-- Blog -->
-      <section id="blog" class="section">
-        <h2>Blog</h2>
-        <p class="section-lead">Conteúdo técnico em PT-BR: decisões, arquitetura, testes, IA aplicada.</p>
-        <p class="muted">Em breve: posts e guias técnicos.</p>
-      </section>
+      <div class="grid">
+        <article class="card">
+          <h3>Checklist</h3>
 
-      <!-- Serviços -->
-      <section id="servicos" class="section">
-        <h2>Serviços</h2>
-        <p class="section-lead">O que eu consigo entregar hoje (e evoluindo).</p>
+          <p>
+            O CheckList é uma aplicação web desenvolvida para gerenciar tarefas e processos de forma simples, organizada
+            e eficiente.
+          </p>
 
-        <ul class="bullets">
-          <li>Desenvolvimento fullstack (front + API)</li>
-          <li>Criação e manutenção de APIs REST</li>
-          <li>Automação e ferramentas internas</li>
-          <li>Qualidade: testes, validações, revisão e melhorias</li>
-        </ul>
-      </section>
+          <!-- IMAGEM AQUI -->
+          <img src="./assets/checklist.png" alt="Preview da aplicação Checklist" class="card-image">
 
-      <!-- Contato -->
-      <section id="contato" class="section">
-        <h2>Contato</h2>
-        <p class="section-lead">Vamos conversar sobre um projeto ou oportunidade.</p>
+          <div class="card-footer">
+            <a href="https://checklists.tech/login" class="link">Acesse a aplicação</a>
+            <a href="#" class="link">Detalhes</a>
+          </div>
+        </article>
 
-        <div class="contact">
-          <a class="btn primary" href="mailto:SEU_EMAIL_AQUI">Enviar e-mail</a>
-          <a class="btn ghost" href="https://github.com/Marcosdev03" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="btn ghost" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
-        </div>
-      </section>
-    </main>
+        <article class="card">
+          <h3>Projeto 02</h3>
+          <p>Descrição curta do problema e do valor entregue.</p>
+          <div class="card-footer">
+            <a href="#" class="link">Repo</a>
+            <a href="#" class="link">Detalhes</a>
+          </div>
+        </article>
 
-    <footer class="site-footer">
-      <p>© <span id="year"></span> Marcos Freitas</p>
-    </footer>
+        <article class="card">
+          <h3>Projeto 03</h3>
+          <p>Descrição curta do problema e do valor entregue.</p>
+          <div class="card-footer">
+            <a href="#" class="link">Repo</a>
+            <a href="#" class="link">Detalhes</a>
+          </div>
+        </article>
+      </div>
+    </section>
 
-    <script src="../scripts/main.js"></script>
-  </body>
+    <!-- Blog -->
+    <section id="blog" class="section">
+      <h2>Blog</h2>
+      <p class="section-lead">Conteúdo técnico em PT-BR: decisões, arquitetura, testes, IA aplicada.</p>
+      <p class="muted">Em breve: posts e guias técnicos.</p>
+    </section>
+
+    <!-- Serviços -->
+    <section id="servicos" class="section">
+      <h2>Serviços</h2>
+      <p class="section-lead">O que eu consigo entregar hoje (e evoluindo).</p>
+
+      <ul class="bullets">
+        <li>Desenvolvimento fullstack (front + API)</li>
+        <li>Criação e manutenção de APIs REST</li>
+        <li>Automação e ferramentas internas</li>
+        <li>Qualidade: testes, validações, revisão e melhorias</li>
+      </ul>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="section">
+      <h2>Contato</h2>
+      <p class="section-lead">Vamos conversar sobre um projeto ou oportunidade.</p>
+
+      <div class="contact">
+        <a class="btn primary" href="mailto:SEU_EMAIL_AQUI">Enviar e-mail</a>
+        <a class="btn ghost" href="https://github.com/Marcosdev03" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn ghost" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Marcos Freitas</p>
+  </footer>
+
+  <script src="../scripts/main.js"></script>
+</body>
+
 </html>
