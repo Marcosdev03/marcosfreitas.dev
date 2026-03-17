@@ -33,5 +33,9 @@ jobs:
             cd /root/Home/ecosistema
             docker compose up -d --build marcos-app
 
+            for i in 1 2 3 4 5 6; do
+              curl -fsS https://marcosfreitas.dev > /dev/null && break
+              sleep 5
+            done
             curl -fsS https://marcosfreitas.dev > /dev/null
             echo "Deploy do marcosfreitas.dev concluido com sucesso."
