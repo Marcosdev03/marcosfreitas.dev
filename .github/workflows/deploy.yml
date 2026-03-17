@@ -1,0 +1,37 @@
+name: Deploy Marcosfreitas.dev
+
+on:
+  push:
+    branches:
+      - producao
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-marcos-prod
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USER }}
+          key: ${{ secrets.PROD_SSH_KEY }}
+          port: ${{ secrets.PROD_PORT }}
+          script: |
+            set -e
+            cd /root/Home/ecosistema/marcosfreitas.dev
+            git fetch origin
+            git checkout producao
+            git pull --ff-only origin producao
+
+            cd /root/Home/ecosistema
+            docker compose up -d --build marcos-app
+
+            curl -fsS https://marcosfreitas.dev > /dev/null
+            echo "Deploy do marcosfreitas.dev concluido com sucesso."
