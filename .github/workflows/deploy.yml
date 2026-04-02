@@ -31,8 +31,45 @@ jobs:
             git checkout producao
             git pull --ff-only origin producao
 
-            cd /root/Home/ecosistema
-            docker compose up -d --build marcos-app
+            if ! command -v docker >/dev/null 2>&1; then
+              echo "ERRO: docker nao encontrado no servidor." >&2
+              exit 1
+            fi
+
+            if ! docker compose version >/dev/null 2>&1; then
+              echo "ERRO: plugin docker compose nao encontrado no servidor." >&2
+              exit 1
+            fi
+
+            COMPOSE_DIR=""
+            if [ -f /root/Home/ecosistema/marcosfreitas.dev/docker-compose.yml ] || [ -f /root/Home/ecosistema/marcosfreitas.dev/compose.yml ]; then
+              COMPOSE_DIR="/root/Home/ecosistema/marcosfreitas.dev"
+            elif [ -f /root/Home/ecosistema/docker-compose.yml ] || [ -f /root/Home/ecosistema/compose.yml ]; then
+              COMPOSE_DIR="/root/Home/ecosistema"
+            fi
+
+            if [ -z "$COMPOSE_DIR" ]; then
+              echo "ERRO: nenhum arquivo docker compose encontrado em /root/Home/ecosistema ou /root/Home/ecosistema/marcosfreitas.dev." >&2
+              exit 1
+            fi
+
+            cd "$COMPOSE_DIR"
+
+            APP_SERVICE=""
+            if docker compose config --services | grep -qx "marcos-app"; then
+              APP_SERVICE="marcos-app"
+            elif docker compose config --services | grep -qx "web"; then
+              APP_SERVICE="web"
+            fi
+
+            if [ -z "$APP_SERVICE" ]; then
+              echo "ERRO: nenhum servico suportado (marcos-app ou web) encontrado no docker compose de $COMPOSE_DIR." >&2
+              echo "Servicos disponiveis:" >&2
+              docker compose config --services >&2
+              exit 1
+            fi
+
+            docker compose up -d --build "$APP_SERVICE"
 
             for i in 1 2 3 4 5 6; do
               curl -fsS https://marcosfreitas.dev > /dev/null && break
