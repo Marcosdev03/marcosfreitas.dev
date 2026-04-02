@@ -27,6 +27,8 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.5;
+  position: relative;
+  overflow-x: hidden;
 }
 
 a {
@@ -46,6 +48,7 @@ a {
   background: rgba(11, 13, 18, 0.7);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(10px);
+  z-index: 5;
 }
 
 .nav {
@@ -216,6 +219,8 @@ a {
 }
 
 .site-footer {
+  position: relative;
+  z-index: 1;
   border-top: 1px solid var(--border);
   padding: 18px 0;
   color: var(--muted);
@@ -228,94 +233,43 @@ a {
   }
 }
 
-.bg-blobs {
+.bg-galaxy {
   position: fixed;
   inset: 0;
   overflow: hidden;
-  z-index: -1;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1400px 900px at 80% -10%, rgba(67, 104, 178, 0.36), transparent 62%),
+    radial-gradient(1100px 800px at 15% 110%, rgba(80, 146, 255, 0.24), transparent 66%),
+    linear-gradient(180deg, #000 0%, #03040a 50%, #000 100%);
 }
 
-/* BOLAS */
-.blob {
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+#starfield {
+  width: 100%;
+  height: 100%;
   position: absolute;
-  width: 500px;
-  height: 500px;
-  border-radius: 999px;
-
-  background: radial-gradient(circle at 30% 30%,
-      #a855f7,
-      #6d28d9 60%,
-      transparent 70%);
-
-  opacity: 0.8;
-  mix-blend-mode: screen;
-
-  animation:
-    float 18s ease-in-out infinite alternate,
-    colorShift 20s linear infinite;
-
-  will-change: transform, filter;
+  inset: 0;
+  display: block;
 }
 
-/* POSIÇÕES */
-.blob-1 {
-  top: -150px;
-  left: -150px;
+.galaxy-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(800px 420px at 80% 16%, rgba(112, 170, 255, 0.22), transparent 66%),
+    radial-gradient(900px 460px at 22% 84%, rgba(130, 180, 255, 0.16), transparent 70%),
+    radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.38) 72%, rgba(0, 0, 0, 0.7) 100%);
 }
 
-.blob-2 {
-  bottom: -200px;
-  left: 200px;
-  animation-duration: 22s, 24s;
-}
-
-.blob-3 {
-  bottom: -200px;
-  right: -150px;
-  animation-duration: 26s, 28s;
-}
-
-/* MOVIMENTO + ROTAÇÃO */
-@keyframes float {
-  0% {
-    transform: translate(0, 0) scale(1) rotate(0deg);
-  }
-
-  50% {
-    transform: translate(100px, -60px) scale(1.12) rotate(180deg);
-  }
-
-  100% {
-    transform: translate(-60px, 80px) scale(1.05) rotate(360deg);
-  }
-}
-
-/* MUDANÇA DE COR SUAVE */
-@keyframes colorShift {
-  0% {
-    filter: blur(70px) hue-rotate(0deg);
-  }
-
-  25% {
-    filter: blur(70px) hue-rotate(60deg);
-  }
-
-  50% {
-    filter: blur(70px) hue-rotate(140deg);
-  }
-
-  75% {
-    filter: blur(70px) hue-rotate(220deg);
-  }
-
-  100% {
-    filter: blur(70px) hue-rotate(320deg);
-  }
-}
-
-/* ACESSIBILIDADE */
 @media (prefers-reduced-motion: reduce) {
-  .blob {
-    animation: none;
+
+  #starfield {
+    display: none;
   }
 }
