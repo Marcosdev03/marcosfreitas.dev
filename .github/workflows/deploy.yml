@@ -69,7 +69,16 @@ jobs:
               exit 1
             fi
 
-            docker compose up -d --build "$APP_SERVICE"
+            # Limpa container legado que pode ocupar a mesma porta do servico alvo.
+            if [ "$APP_SERVICE" = "web" ] && docker ps -a --format '{{.Names}}' | grep -qx "marcos-app"; then
+              docker rm -f marcos-app
+            fi
+
+            if [ "$APP_SERVICE" = "marcos-app" ] && docker ps -a --format '{{.Names}}' | grep -qx "marcosfreitas-dev"; then
+              docker rm -f marcosfreitas-dev
+            fi
+
+            docker compose up -d --build --remove-orphans "$APP_SERVICE"
 
             for i in 1 2 3 4 5 6; do
               curl -fsS https://marcosfreitas.dev > /dev/null && break
