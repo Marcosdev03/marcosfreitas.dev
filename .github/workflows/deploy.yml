@@ -1,88 +1,23 @@
-name: Deploy Marcosfreitas.dev
+name: Deploy VPS Shard Cloud
 
 on:
   push:
     branches:
       - producao
-  workflow_dispatch:
-
-concurrency:
-  group: deploy-marcos-prod
-  cancel-in-progress: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
 
     steps:
-      - name: Deploy over SSH
-        uses: appleboy/ssh-action@v1.2.0
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.PROD_HOST }}
-          username: ${{ secrets.PROD_USER }}
-          key: ${{ secrets.PROD_SSH_KEY }}
-          passphrase: ${{ secrets.PROD_SSH_PASSPHRASE }}
-          port: ${{ secrets.PROD_PORT }}
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            set -e
-            cd /root/Home/ecosistema/marcosfreitas.dev
-            git fetch origin
-            git checkout producao
-            git pull --ff-only origin producao
-
-            if ! command -v docker >/dev/null 2>&1; then
-              echo "ERRO: docker nao encontrado no servidor." >&2
-              exit 1
-            fi
-
-            if ! docker compose version >/dev/null 2>&1; then
-              echo "ERRO: plugin docker compose nao encontrado no servidor." >&2
-              exit 1
-            fi
-
-            COMPOSE_DIR=""
-            if [ -f /root/Home/ecosistema/marcosfreitas.dev/docker-compose.yml ] || [ -f /root/Home/ecosistema/marcosfreitas.dev/compose.yml ]; then
-              COMPOSE_DIR="/root/Home/ecosistema/marcosfreitas.dev"
-            elif [ -f /root/Home/ecosistema/docker-compose.yml ] || [ -f /root/Home/ecosistema/compose.yml ]; then
-              COMPOSE_DIR="/root/Home/ecosistema"
-            fi
-
-            if [ -z "$COMPOSE_DIR" ]; then
-              echo "ERRO: nenhum arquivo docker compose encontrado em /root/Home/ecosistema ou /root/Home/ecosistema/marcosfreitas.dev." >&2
-              exit 1
-            fi
-
-            cd "$COMPOSE_DIR"
-
-            APP_SERVICE=""
-            if docker compose config --services | grep -qx "marcos-app"; then
-              APP_SERVICE="marcos-app"
-            elif docker compose config --services | grep -qx "web"; then
-              APP_SERVICE="web"
-            fi
-
-            if [ -z "$APP_SERVICE" ]; then
-              echo "ERRO: nenhum servico suportado (marcos-app ou web) encontrado no docker compose de $COMPOSE_DIR." >&2
-              echo "Servicos disponiveis:" >&2
-              docker compose config --services >&2
-              exit 1
-            fi
-
-            # Limpa container legado que pode ocupar a mesma porta do servico alvo.
-            if [ "$APP_SERVICE" = "web" ] && docker ps -a --format '{{.Names}}' | grep -qx "marcos-app"; then
-              docker rm -f marcos-app
-            fi
-
-            if [ "$APP_SERVICE" = "marcos-app" ] && docker ps -a --format '{{.Names}}' | grep -qx "marcosfreitas-dev"; then
-              docker rm -f marcosfreitas-dev
-            fi
-
-            docker compose up -d --build --remove-orphans "$APP_SERVICE"
-
-            for i in 1 2 3 4 5 6; do
-              curl -fsS https://marcosfreitas.dev > /dev/null && break
-              sleep 5
-            done
-            curl -fsS https://marcosfreitas.dev > /dev/null
-            echo "Deploy do marcosfreitas.dev concluido com sucesso."
+            cd ${{ secrets.VPS_PROJECT_PATH }}
+            git pull origin producao
+            docker compose up -d --build
+            docker image prune -f
